@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inscrição: A Nova Profissão</title><meta name="description" content="Informe seus dados para receber o acesso ao evento."><meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"><link rel="icon" href="icon.svg">
+<style>:root{--accent:#22e06b;--sec:#08170e;--sec2:#15301f;--tint:#6fc596}</style>
+</head><body class="ev">
+<nav><div class="wrap"><a class="logo" href="index.html"><img src="logo.png" alt="A Nova Profissão" height="52"></a><span class="seg">Inscrição segura</span></div></nav>
+<section style="border:0"><div class="wrap" style="max-width:560px">
+<span class="label">Quase lá</span><h1 style="font-size:clamp(1.8rem,5vw,2.6rem);margin-bottom:12px">Para onde enviamos o seu acesso?</h1>
+<p class="lead" style="margin-bottom:26px">Os lembretes das 3 noites ao vivo (20 a 22 de janeiro, às 20h) chegam por e-mail e WhatsApp.</p>
+<form class="form" id="f" style="margin:0">
+<label>Nome completo<input name="nome" required autocomplete="name"></label>
+<label>E-mail<input name="email" type="email" required autocomplete="email" inputmode="email"></label>
+<label>WhatsApp (com DDD)<input name="whatsapp" type="tel" required autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000"></label>
+<button class="btn lg" type="submit" style="width:100%">Ir para o pagamento</button>
+<p class="fine" style="text-align:center;margin:0">Pagamento seguro · Garantia de 7 dias · Ao continuar, você concorda com a <a class="ac" href="#">política de privacidade</a>.</p>
+</form>
+<p id="prev" hidden class="callout" style="margin-top:22px;font-size:1rem">Pré-visualização: neste ponto a pessoa segue para o pagamento. O link da plataforma de pagamento ainda não foi configurado.</p>
+</div></section>
+<footer><div class="wrap"><div class="flogo"><img src="logo.png" alt="A Nova Profissão" height="52"></div>
+<p>Negócio Fora da Curva</p>
+<p><a class="ac" href="#">Política de privacidade</a> · <a class="ac" href="#">Termos de uso</a> · <a class="ac" href="https://wa.me/5500000000000" target="_blank" rel="noopener">Contato</a></p>
+<p>Os resultados variam de pessoa para pessoa e dependem da aplicação do método. Este evento não é promessa de ganho financeiro.</p>
+<p>Este site não é afiliado ao Google, à Meta ou a outra plataforma.</p></div></footer>
+<script>
+(function () {
+  var f = document.getElementById('f'), ck = '#', hook = '';
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = new FormData(f), dados = { nome: d.get('nome'), email: d.get('email'), whatsapp: d.get('whatsapp') };
+    if (hook) { try { fetch(hook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados), keepalive: true }).catch(function () {}); } catch (x) {} }
+    if (ck === '#') { document.getElementById('prev').hidden = false; return; }
+    var u = new URL(ck, location.href);
+    u.searchParams.set('name', dados.nome); u.searchParams.set('email', dados.email); u.searchParams.set('phone', dados.whatsapp);
+    new URLSearchParams(location.search).forEach(function (v, k) { if (!u.searchParams.has(k)) u.searchParams.set(k, v); }); // mantem UTMs
+    location.href = u.toString();
+  });
+})();
+</script>
+</body></html>
